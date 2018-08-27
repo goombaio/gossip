@@ -24,6 +24,7 @@ import (
 	"os"
 
 	"github.com/google/uuid"
+	"github.com/repejota/gossiper"
 )
 
 const (
@@ -66,7 +67,6 @@ func main() {
 	simulationDelay = DefaultSimulationDelay
 	retryDelay = DefaultRetryDelaty
 
-	log.Printf("Starting gossiper..\n")
 	log.Printf("Instance ID: %s\n", instanceID)
 
 	// Flags
@@ -87,14 +87,6 @@ func main() {
 	// Args
 	// - Build peers list
 
-	// Watcher
-
-	// Peers
-	// - Setup queue on each peer
-	// - Setup sender on each peer
-	// - Start queues an senders on each peer
-
-	// Stamper
-
-	// Server
+	g := gossiper.New()
+	g.Start()
 }
