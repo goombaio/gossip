@@ -56,6 +56,7 @@ lint:			## Lint source code
 # Dependencies
 
 deps:			## Install build dependencies
+	go get github.com/google/uuid
 
 dev-deps: deps
 dev-deps:		## Install dev and build dependencies
