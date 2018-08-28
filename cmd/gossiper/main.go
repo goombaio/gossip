@@ -25,26 +25,6 @@ import (
 	"github.com/repejota/gossiper"
 )
 
-const (
-	// DefaultPort ...
-	DefaultPort = 30480
-
-	// DefaultTimestampDelay ...
-	DefaultTimestampDelay = 300
-
-	// DefaultSimulationDelay ...
-	DefaultSimulationDelay = 60
-
-	// DefaultRetryDelaty ...
-	DefaultRetryDelaty = 120
-
-	// DefaultRetryAttempts ...
-	DefaultRetryAttempts = 10
-
-	// DefaultMaxDisplay ...
-	DefaultMaxDisplay = 40
-)
-
 var (
 	// Version is the current version number using the semver standard.
 	Version string
@@ -52,12 +32,8 @@ var (
 	// Build is the current build id represented by the last commit id.
 	Build string
 
-	port            int
-	retryDelay      int
-	simulationDelay int
-	timestampDelay  int
-	helpFlag        bool
-	versionFlag     bool
+	helpFlag    bool
+	versionFlag bool
 )
 
 // Usage ...
@@ -66,16 +42,20 @@ func Usage() {
 }
 
 func main() {
-	timestampDelay = DefaultTimestampDelay
-	simulationDelay = DefaultSimulationDelay
-	retryDelay = DefaultRetryDelaty
+	options := &gossiper.Options{
+		TimestampDelay:  gossiper.DefaultTimestampDelay,
+		SimulationDelay: gossiper.DefaultSimulationDelay,
+		RetryDelay:      gossiper.DefaultRetryDelay,
+		RetryAttempts:   gossiper.DefaultRetryAttempts,
+		MaxDisplay:      gossiper.DefaultMaxDisplay,
+	}
 
 	// Flags
 
-	flag.IntVar(&port, "port", DefaultPort, "Port number.")
-	flag.IntVar(&retryDelay, "retry-delay", DefaultRetryDelaty, "Retry delay in seconds.")
-	flag.IntVar(&simulationDelay, "simulation-delay", DefaultSimulationDelay, "Simulation delay in seconds.")
-	flag.IntVar(&timestampDelay, "timestamp-delay", DefaultTimestampDelay, "Timestamp delay in seconds.")
+	flag.IntVar(&options.Port, "port", gossiper.DefaultPort, "Port number.")
+	flag.IntVar(&options.RetryDelay, "retry-delay", gossiper.DefaultRetryDelay, "Retry delay in seconds.")
+	flag.IntVar(&options.SimulationDelay, "simulation-delay", gossiper.DefaultSimulationDelay, "Simulation delay in seconds.")
+	flag.IntVar(&options.TimestampDelay, "timestamp-delay", gossiper.DefaultTimestampDelay, "Timestamp delay in seconds.")
 	flag.BoolVar(&helpFlag, "help", false, "Show usage informnation.")
 	flag.BoolVar(&versionFlag, "version", false, "Show version informnation.")
 
@@ -96,7 +76,7 @@ func main() {
 	// Args
 	// - Build peers list
 
-	g := gossiper.NewGossiper()
+	g := gossiper.NewGossiper(options)
 
 	g.Start()
 }

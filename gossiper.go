@@ -27,6 +27,7 @@ import (
 
 // Gossiper ...
 type Gossiper struct {
+	options *Options
 	service *Service
 
 	signal chan os.Signal
@@ -34,13 +35,14 @@ type Gossiper struct {
 }
 
 // NewGossiper ...
-func NewGossiper() *Gossiper {
+func NewGossiper(options *Options) *Gossiper {
 	g := &Gossiper{
-		signal: make(chan os.Signal, 1),
-		quit:   make(chan bool, 1),
+		options: options,
+		signal:  make(chan os.Signal, 1),
+		quit:    make(chan bool, 1),
 	}
 
-	g.service = NewService()
+	g.service = NewService(options)
 
 	return g
 }

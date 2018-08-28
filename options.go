@@ -17,47 +17,32 @@
 
 package gossiper
 
-import (
-	"log"
-	"time"
+const (
+	// DefaultPort ...
+	DefaultPort = 99999
 
-	"github.com/google/uuid"
+	// DefaultTimestampDelay (miliseconds) ...
+	DefaultTimestampDelay = 5000
+
+	// DefaultSimulationDelay (miliseconds) ...
+	DefaultSimulationDelay = 1000
+
+	// DefaultRetryDelay (miliseconds) ...
+	DefaultRetryDelay = 2000
+
+	// DefaultRetryAttempts ...
+	DefaultRetryAttempts = 10
+
+	// DefaultMaxDisplay ...
+	DefaultMaxDisplay = 40
 )
 
-// Service ...
-type Service struct {
-	options *Options
-	ID      uuid.UUID
-	ticker  *time.Ticker
-}
-
-// NewService ...
-func NewService(options *Options) *Service {
-	s := &Service{
-		options: options,
-		ID:      uuid.New(),
-	}
-	return s
-}
-
-// Start ...
-func (s *Service) Start() {
-	log.Printf("Starting service: %s\n", s.ID)
-
-	// TODO:
-	// - Tick duration should be setup by configuration/flags
-	// - Always seconds or microseconds? ( it is a duration )
-	d := time.Duration(s.options.TimestampDelay) * time.Millisecond
-	s.ticker = time.NewTicker(d)
-	go func() {
-		for t := range s.ticker.C {
-			log.Printf("Tick at %s\n", t)
-		}
-	}()
-}
-
-// Stop ...
-func (s *Service) Stop() {
-	log.Printf("Stopping service: %s\n", s.ID)
-	s.ticker.Stop()
+// Options ...
+type Options struct {
+	Port            int
+	TimestampDelay  int
+	SimulationDelay int
+	RetryDelay      int
+	RetryAttempts   int
+	MaxDisplay      int
 }
