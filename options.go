@@ -19,7 +19,10 @@ package gossiper
 
 const (
 	// DefaultPort ...
-	DefaultPort = 99999
+	DefaultPort = 90900
+
+	// DefaultAddress ...
+	DefaultAddress = "127.0.0.1"
 
 	// DefaultTimestampDelay (miliseconds) ...
 	DefaultTimestampDelay = 5000

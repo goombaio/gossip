@@ -38,10 +38,25 @@ var (
 
 // Usage ...
 func Usage() {
-	fmt.Println("Usage: gossiper [flags] [args]")
+	fmt.Println("Usage: gossiper [flags] <peers>")
+	fmt.Println()
+	fmt.Println("The peers argument list follows the format address:port, each item separated by a space.")
+	fmt.Println()
+	fmt.Println("Flags:")
+	fmt.Printf("  -address\tHostname or IP, defaults to %s.\n", gossiper.DefaultAddress)
+	fmt.Printf("  -port\tPort number, defaults to %d.\n", gossiper.DefaultPort)
+	fmt.Printf("  -help\tShow this help message.\n")
+	fmt.Println()
+	fmt.Println("Example:")
+	fmt.Println("  gossiper -port 90900 127.0.0.1:90901")
+	fmt.Println("  gossiper -port 90901 127.0.0.1:90900 127.0.0.1:90902")
+	fmt.Println("  gossiper -port 90902 127.0.0.1:90903")
+	fmt.Println("  gossiper -port 90903 127.0.0.1:90902")
+	fmt.Println()
 }
 
 func main() {
+	// Options / Configuration
 	options := &gossiper.Options{
 		TimestampDelay:  gossiper.DefaultTimestampDelay,
 		SimulationDelay: gossiper.DefaultSimulationDelay,
@@ -51,11 +66,11 @@ func main() {
 	}
 
 	// Flags
-
 	flag.IntVar(&options.Port, "port", gossiper.DefaultPort, "Port number.")
 	flag.IntVar(&options.RetryDelay, "retry-delay", gossiper.DefaultRetryDelay, "Retry delay in seconds.")
 	flag.IntVar(&options.SimulationDelay, "simulation-delay", gossiper.DefaultSimulationDelay, "Simulation delay in seconds.")
 	flag.IntVar(&options.TimestampDelay, "timestamp-delay", gossiper.DefaultTimestampDelay, "Timestamp delay in seconds.")
+
 	flag.BoolVar(&helpFlag, "help", false, "Show usage informnation.")
 	flag.BoolVar(&versionFlag, "version", false, "Show version informnation.")
 
@@ -75,6 +90,11 @@ func main() {
 
 	// Args
 	// - Build peers list
+	if len(flag.Args()) == 0 {
+		fmt.Println("ERROR: Not enough peers indicated")
+		Usage()
+		os.Exit(1)
+	}
 
 	g := gossiper.NewGossiper(options)
 

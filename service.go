@@ -44,9 +44,6 @@ func NewService(options *Options) *Service {
 func (s *Service) Start() {
 	log.Printf("Starting service: %s\n", s.ID)
 
-	// TODO:
-	// - Tick duration should be setup by configuration/flags
-	// - Always seconds or microseconds? ( it is a duration )
 	d := time.Duration(s.options.TimestampDelay) * time.Millisecond
 	s.ticker = time.NewTicker(d)
 	go func() {
@@ -54,6 +51,7 @@ func (s *Service) Start() {
 			log.Printf("Tick at %s\n", t)
 		}
 	}()
+
 }
 
 // Stop ...
