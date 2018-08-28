@@ -6,7 +6,7 @@ Gossip protocol implemented in Golang.
 
 [![License][License-Image]][License-Url]
 [![CircleCI](https://circleci.com/gh/goombaio/gossiper.svg?style=svg)](https://circleci.com/gh/goombaio/gossiper)
-[![Coverage Status](https://coveralls.io/repos/github/goombaio/gossiper/badge.svg?branch=master)](https://coveralls.io/github/goombaio/gossiper?branch=master)
+[![codecov](https://codecov.io/gh/goombaio/gossiper/branch/master/graph/badge.svg)](https://codecov.io/gh/goombaio/gossiper)
 [![Go Report Card](https://goreportcard.com/badge/github.com/goombaio/gossiper)](https://goreportcard.com/report/github.com/goombaio/gossiper)
 
 ## License
