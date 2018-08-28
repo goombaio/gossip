@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/repejota/gossiper"
+	"github.com/goombaio/gossiper"
 )
 
 var (
