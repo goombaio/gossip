@@ -18,7 +18,6 @@
 package gossiper
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"time"
@@ -66,17 +65,18 @@ func (s *Service) Start() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	buf := make([]byte, 1024)
 	go func() {
 		for {
 			n, addr, err := s.listener.ReadFromUDP(buf)
+			if err != nil {
+				log.Fatal(err)
+			}
 			if n > 0 {
 				message := string(buf[0 : n-1])
 				log.Printf("Message received %q from %s", message, addr)
-				if err != nil {
-					fmt.Println("Error: ", err)
-				}
+				// TODO:
+				// - Message handler
 			}
 		}
 	}()
@@ -85,6 +85,10 @@ func (s *Service) Start() {
 // Stop ...
 func (s *Service) Stop() {
 	log.Printf("Stopping service: %s\n", s.ID)
+
+	// Ticker
 	s.ticker.Stop()
-	s.listener.Close()
+
+	// Server listener ( UDP sockets transport )
+	// s.listener.Close()
 }
