@@ -42,7 +42,8 @@ func NewService(options *Options) *Service {
 
 // Start ...
 func (s *Service) Start() {
-	log.Printf("Starting service: %s\n", s.ID)
+	log.Printf("Service:\n")
+	log.Printf("  - ID: %s - Address: ip:%d\n", s.ID, s.options.Port)
 
 	d := time.Duration(s.options.TimestampDelay) * time.Millisecond
 	s.ticker = time.NewTicker(d)

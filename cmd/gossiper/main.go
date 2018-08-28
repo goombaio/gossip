@@ -43,7 +43,7 @@ func Usage() {
 	fmt.Println("The peers argument list follows the format address:port, each item separated by a space.")
 	fmt.Println()
 	fmt.Println("Flags:")
-	fmt.Printf("  -address\tHostname or IP, defaults to %s.\n", gossiper.DefaultAddress)
+	fmt.Printf("  -host\tHostname or IP, defaults to %s.\n", gossiper.DefaultHost)
 	fmt.Printf("  -port\tPort number, defaults to %d.\n", gossiper.DefaultPort)
 	fmt.Printf("  -help\tShow this help message.\n")
 	fmt.Println()
@@ -67,6 +67,7 @@ func main() {
 
 	// Flags
 	flag.IntVar(&options.Port, "port", gossiper.DefaultPort, "Port number.")
+	flag.StringVar(&options.Host, "host", gossiper.DefaultHost, "Hostname or IP.")
 	flag.IntVar(&options.RetryDelay, "retry-delay", gossiper.DefaultRetryDelay, "Retry delay in seconds.")
 	flag.IntVar(&options.SimulationDelay, "simulation-delay", gossiper.DefaultSimulationDelay, "Simulation delay in seconds.")
 	flag.IntVar(&options.TimestampDelay, "timestamp-delay", gossiper.DefaultTimestampDelay, "Timestamp delay in seconds.")
@@ -89,7 +90,7 @@ func main() {
 	}
 
 	// Args
-	// - Build peers list
+
 	if len(flag.Args()) == 0 {
 		fmt.Println("ERROR: Not enough peers indicated")
 		Usage()
@@ -97,6 +98,10 @@ func main() {
 	}
 
 	g := gossiper.NewGossiper(options)
+
+	for _, peerAddress := range flag.Args() {
+		g.AddPeer(peerAddress)
+	}
 
 	g.Start()
 }

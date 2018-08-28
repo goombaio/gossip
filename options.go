@@ -17,12 +17,14 @@
 
 package gossiper
 
+import "fmt"
+
 const (
 	// DefaultPort ...
 	DefaultPort = 90900
 
-	// DefaultAddress ...
-	DefaultAddress = "127.0.0.1"
+	// DefaultHost ...
+	DefaultHost = "127.0.0.1"
 
 	// DefaultTimestampDelay (miliseconds) ...
 	DefaultTimestampDelay = 5000
@@ -43,9 +45,16 @@ const (
 // Options ...
 type Options struct {
 	Port            int
+	Host            string
 	TimestampDelay  int
 	SimulationDelay int
 	RetryDelay      int
 	RetryAttempts   int
 	MaxDisplay      int
+}
+
+// Address ...
+func (o *Options) Address() string {
+	a := fmt.Sprintf("%s:%d", o.Host, o.Port)
+	return a
 }

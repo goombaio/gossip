@@ -19,7 +19,6 @@ package gossiper
 
 import (
 	"fmt"
-	"net"
 
 	"github.com/google/uuid"
 )
@@ -27,19 +26,20 @@ import (
 // Peer ...
 type Peer struct {
 	ID      uuid.UUID
-	Address net.Addr
+	Address string
 }
 
 // NewPeer ...
-func NewPeer() *Peer {
+func NewPeer(address string) *Peer {
 	p := &Peer{
-		ID: uuid.New(),
+		ID:      uuid.New(),
+		Address: address,
 	}
 	return p
 }
 
 // String implements stringer interface
 func (p *Peer) String() string {
-	str := fmt.Sprintf("%s,%s://%s", p.ID, p.Address.Network(), p.Address.String())
+	str := fmt.Sprintf("%s,%s", p.ID, p.Address)
 	return str
 }

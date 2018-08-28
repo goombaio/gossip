@@ -22,7 +22,10 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
+
+	"github.com/google/uuid"
 )
 
 // Gossiper ...
@@ -32,6 +35,9 @@ type Gossiper struct {
 
 	signal chan os.Signal
 	quit   chan bool
+
+	mu    sync.Mutex
+	peers map[uuid.UUID]*Peer
 }
 
 // NewGossiper ...
@@ -40,6 +46,7 @@ func NewGossiper(options *Options) *Gossiper {
 		options: options,
 		signal:  make(chan os.Signal, 1),
 		quit:    make(chan bool, 1),
+		peers:   make(map[uuid.UUID]*Peer),
 	}
 
 	g.service = NewService(options)
@@ -51,14 +58,17 @@ func NewGossiper(options *Options) *Gossiper {
 func (g *Gossiper) Start() {
 	log.Printf("Starting gossiper..\n")
 
+	g.service.Start()
+
 	// Peers
+	log.Printf("%d peers:\n", len(g.peers))
+	for _, peer := range g.peers {
+		log.Printf("  - ID: %s - Address: %s", peer.ID, peer.Address)
+	}
+
 	// - Setup queue on each peer
 	// - Setup sender on each peer
 	// - Start queues an senders on each peer
-
-	// Stamper
-
-	g.service.Start()
 
 	g.hanleSignals()
 }
@@ -68,6 +78,14 @@ func (g *Gossiper) Stop() {
 	log.Printf("Stopping gossiper..\n")
 
 	g.service.Stop()
+}
+
+// AddPeer ...
+func (g *Gossiper) AddPeer(peerAddress string) {
+	p := NewPeer(peerAddress)
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.peers[p.ID] = p
 }
 
 // hanleSignalss enables graceful shutdown listening for OS signals.
