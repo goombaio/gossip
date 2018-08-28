@@ -21,7 +21,7 @@ import "fmt"
 
 const (
 	// DefaultPort ...
-	DefaultPort = 90900
+	DefaultPort = 60900
 
 	// DefaultHost ...
 	DefaultHost = "127.0.0.1"

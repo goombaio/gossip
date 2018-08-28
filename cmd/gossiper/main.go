@@ -48,10 +48,10 @@ func Usage() {
 	fmt.Printf("  -help\tShow this help message.\n")
 	fmt.Println()
 	fmt.Println("Example:")
-	fmt.Println("  gossiper -port 90900 127.0.0.1:90901")
-	fmt.Println("  gossiper -port 90901 127.0.0.1:90900 127.0.0.1:90902")
-	fmt.Println("  gossiper -port 90902 127.0.0.1:90903")
-	fmt.Println("  gossiper -port 90903 127.0.0.1:90902")
+	fmt.Println("  gossiper -port 60900 127.0.0.1:60901")
+	fmt.Println("  gossiper -port 60901 127.0.0.1:60900 127.0.0.1:60902")
+	fmt.Println("  gossiper -port 60902 127.0.0.1:60903")
+	fmt.Println("  gossiper -port 60903 127.0.0.1:60902")
 	fmt.Println()
 }
 
