@@ -55,8 +55,8 @@ import getopt
 import random
 
 DEFAULT_PORT = 30480
-DEFAULT_TIMESTAMP_DELAY = 300
-DEFAULT_SIMULATION_DELAY = 60
+DEFAULT_TIMESTAMP_DELAY = 30
+DEFAULT_SIMULATION_DELAY = 20
 DEFAULT_RETRY_DELAY = 120
 DEFAULT_RETRY_ATTEMPTS = 10
 DEFAULT_MAX_DISPLAY = 40
@@ -406,7 +406,7 @@ Server.allow_reuse_address = True
 # the use of AF_INET6 may or may not allow also IPv4 connections.
 Server.address_family = socket.AF_INET6
 # TODO: an option to bind on a specific address
-myserver = Server(("", port), RequestHandler, myid, len(mczysenders))
+myserver = Server(("", port), RequestHandler, myid, len(mysenders))
 stamper = Timestamper(timestamp_delay)
 stamper.start()
 run_server = threading.Thread(target=myserver.serve_forever)

@@ -81,11 +81,13 @@ func main() {
 
 	flag.Parse()
 
+	// --help
 	if helpFlag {
 		Usage()
 		os.Exit(0)
 	}
 
+	// --version
 	if versionFlag {
 		ShowVersionInfo(Version, Build)
 		os.Exit(0)

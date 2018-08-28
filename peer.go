@@ -18,43 +18,28 @@
 package gossiper
 
 import (
-	"log"
-	"time"
+	"fmt"
+	"net"
 
 	"github.com/google/uuid"
 )
 
-// Service ...
-type Service struct {
-	ID     uuid.UUID
-	ticker *time.Ticker
+// Peer ...
+type Peer struct {
+	ID      uuid.UUID
+	Address net.Addr
 }
 
-// NewService ...
-func NewService() *Service {
-	s := &Service{
+// NewPeer ...
+func NewPeer() *Peer {
+	p := &Peer{
 		ID: uuid.New(),
 	}
-	return s
+	return p
 }
 
-// Start ...
-func (s *Service) Start() {
-	log.Printf("Starting service: %s\n", s.ID)
-
-	// TODO:
-	// - Tick duration should be setup by configuration/flags
-	// - Always seconds or microseconds? ( it is a duration )
-	s.ticker = time.NewTicker(time.Second * 30)
-	go func() {
-		for t := range s.ticker.C {
-			log.Printf("Tick at %s\n", t)
-		}
-	}()
-}
-
-// Stop ...
-func (s *Service) Stop() {
-	log.Printf("Stopping service: %s\n", s.ID)
-	s.ticker.Stop()
+// String implements stringer interface
+func (p *Peer) String() string {
+	str := fmt.Sprintf("%s,%s://%s", p.ID, p.Address.Network(), p.Address.String())
+	return str
 }
