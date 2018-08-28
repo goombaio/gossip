@@ -20,10 +20,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 
-	"github.com/google/uuid"
 	"github.com/repejota/gossiper"
 )
 
@@ -48,12 +46,18 @@ const (
 )
 
 var (
-	instanceID      uuid.UUID
+	// Version is the current version number using the semver standard.
+	Version string
+
+	// Build is the current build id represented by the last commit id.
+	Build string
+
 	port            int
 	retryDelay      int
 	simulationDelay int
 	timestampDelay  int
 	helpFlag        bool
+	versionFlag     bool
 )
 
 // Usage ...
@@ -62,12 +66,9 @@ func Usage() {
 }
 
 func main() {
-	instanceID = uuid.New()
 	timestampDelay = DefaultTimestampDelay
 	simulationDelay = DefaultSimulationDelay
 	retryDelay = DefaultRetryDelaty
-
-	log.Printf("Instance ID: %s\n", instanceID)
 
 	// Flags
 
@@ -76,6 +77,7 @@ func main() {
 	flag.IntVar(&simulationDelay, "simulation-delay", DefaultSimulationDelay, "Simulation delay in seconds.")
 	flag.IntVar(&timestampDelay, "timestamp-delay", DefaultTimestampDelay, "Timestamp delay in seconds.")
 	flag.BoolVar(&helpFlag, "help", false, "Show usage informnation.")
+	flag.BoolVar(&versionFlag, "version", false, "Show version informnation.")
 
 	flag.Parse()
 
@@ -84,9 +86,22 @@ func main() {
 		os.Exit(0)
 	}
 
+	if versionFlag {
+		ShowVersionInfo(Version, Build)
+		os.Exit(0)
+	}
+
 	// Args
 	// - Build peers list
 
-	g := gossiper.New()
+	g := gossiper.NewGossiper()
+
 	g.Start()
+}
+
+// ShowVersionInfo prints version and build information
+func ShowVersionInfo(version, build string) {
+	tpl := "gossiper version %s build %s"
+	output := fmt.Sprintf(tpl, version, build)
+	fmt.Println(output)
 }

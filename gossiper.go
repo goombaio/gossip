@@ -18,6 +18,7 @@
 package gossiper
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -26,16 +27,21 @@ import (
 
 // Gossiper ...
 type Gossiper struct {
+	service *Service
+
 	signal chan os.Signal
 	quit   chan bool
 }
 
-// New ...
-func New() *Gossiper {
+// NewGossiper ...
+func NewGossiper() *Gossiper {
 	g := &Gossiper{
 		signal: make(chan os.Signal, 1),
 		quit:   make(chan bool, 1),
 	}
+
+	g.service = NewService()
+
 	return g
 }
 
@@ -50,24 +56,28 @@ func (g *Gossiper) Start() {
 
 	// Stamper
 
-	// Server
-	g.handleGracefulShutdown()
+	g.service.Start()
+
+	g.hanleSignals()
 }
 
 // Stop ...
 func (g *Gossiper) Stop() {
 	log.Printf("Stopping gossiper..\n")
+
+	g.service.Stop()
 }
 
-// handleGracefulShutdown enables graceful shutdown
+// hanleSignalss enables graceful shutdown listening for OS signals.
 //
 // listens for two signals
 // SIGTERM: generic signal used to cause program termination.
 // SIGINT: signal used when the user types C-c
-func (g *Gossiper) handleGracefulShutdown() {
+func (g *Gossiper) hanleSignals() {
 	signal.Notify(g.signal, syscall.SIGINT, syscall.SIGTERM)
 	go func() {
-		_ = <-g.signal
+		s := <-g.signal
+		fmt.Printf(" ==> Trap signal: %s\n", s)
 		g.Stop()
 		g.quit <- true
 	}()
