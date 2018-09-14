@@ -44,24 +44,25 @@ cover-html: cover-profile
 cover-html:		## Generate coverage report
 	go tool cover -html=coverage-all.out
 
-.PHONY: coveralls
-coveralls:
-	goveralls -service circle-ci -repotoken l2ZhxGCBuBL37nk0LneaAL5dJsrBET1Py
+.PHONY: codecov
+codecov:
+	bash <(curl -s https://codecov.io/bash)
 
-# Lint
+# BenchMarking
 
-lint:			## Lint source code
-	gometalinter --disable-all --enable=errcheck --enable=vet --enable=vetshadow
+.PHONY: benchmark
+benchmark:		## Execute package benchmarks 
+	go test -v $(PACKAGES) -benchmem -bench . 
 
 # Dependencies
 
 deps:			## Install build dependencies
-	go get github.com/google/uuid
+	go get -u
+	go mod download
+	go mod verify
 
 dev-deps: deps
 dev-deps:		## Install dev and build dependencies
-	go get -u github.com/alecthomas/gometalinter
-	gometalinter --install
 
 .PHONY: clean
 clean:			## Delete generated development environment
