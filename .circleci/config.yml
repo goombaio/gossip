@@ -3,6 +3,7 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
+
   build:
     docker:
       # specify the version
@@ -27,7 +28,7 @@ jobs:
       - run: make test
       - run: make cover-profile
       - run: bash <(curl -s https://codecov.io/bash)
-      
+
   benchmark:
     docker:
       # specify the version
@@ -56,4 +57,4 @@ workflows:
   workflow:
     jobs:
     - build
-    # - benchmarks
+    # - benchmark
