@@ -1,4 +1,4 @@
-// Copyright 2018, gossiper project Authors. All rights reserved.
+// Copyright 2018, Goomba project Authors. All rights reserved.
 //
 // Licensed to the Apache Software Foundation (ASF) under one or more
 // contributor license agreements.  See the NOTICE file distributed with this
@@ -15,35 +15,37 @@
 // License for the specific language governing permissions and limitations
 // under the License.
 
-// Package gossiper implements a gossip network protocol. It is
-// intended only for fun and learning.
-//
-// Gossip protocols are network protocols where each machine, each
-// *peer*, does not have a complete list of all peers. Instead, it knows
-// only a subset of them. In order to spread a message to all the peers,
-// every "gossiper" transmits the message to all the peers it knows, in
-// turn, each transmits it to all the peers it knows and so on. As long
-// as the set of peers is connected, the message will eventually reach
-// everyone.
-//
-// The best-known examples of gossip protocols are the Network News (RFC
-// 1036) and BGP (RFC 4271).
-//
-// An important part of a gossip protocol is the history: peers must
-// remember which messages they sent, to avoid wasting time (or, worse,
-// creating endless loops) with peers which already know the message.
-//
-// Note that a successful gossip protocol does not require every pair of
-// peers to communicate by the same means (Network News is a good
-// example: not everyone uses NNTP). But, in this simple example, the
-// protocol between two peers is fixed. Every peer has an ID, set at
-// startup. The "server" (the peer which replied to the connection) sends
-// its ID followed by a comma. The "client" (the peer which initiated the
-// connection) sends its ID followed by a comma and by the message (one
-// line only). In this implementation, for each peer, only a tuple (IP
-// address, port) is used to connect but it is not imposed by the
-// protocol (machines are identified by the ID, not by the IP address).
-//
-// Peers remember the messages they have seen (in the global history) and
-// the messages they sent to each peer (in a per-peer history).
+/*
+Package gossiper implements a gossip network protocol. It is intended only for
+fun and learning.
+
+Gossip protocols are network protocols where each machine, each peer, does not
+have a complete list of all peers. Instead, it knows only a subset of them. In
+order to spread a message to all the peers, every gossiper transmits the
+message to all the peers it knows, in turn, each transmits it to all the peers
+it knows and so on. As long as the set of peers is connected, the message will
+eventually reach everyone.
+
+The best-known examples of gossip protocols are the Network News (RFC-1036) and
+BGP (RFC 4271).
+
+An important part of a gossip protocol is the history: peers must remember
+which messages they sent, to avoid wasting time (or, worse, creating endless
+loops) with peers which already know the message.
+
+Note that a successful gossip protocol does not require every pair of peers to
+communicate by the same means (Network News is a good example: not everyone
+uses NNTP). But, in this simple example, the protocol between two peers is
+fixed. Every peer has an ID, set at startup. The "server" (the peer which
+replied to the connection) sends its ID followed by a comma. The "client" (the
+peer which initiated the connection) sends its ID followed by a comma and by
+the message (one line only). In this implementation, for each peer, only a
+tuple (IP address, port) is used to connect but it is not imposed by the
+protocol (machines are identified by the ID, not by the IP address).
+
+Peers remember the messages they have seen (in the global history) and the
+messages they sent to each peer (in a per-peer history).
+
+This package is still in R&D, so there is no code yet available.
+*/
 package gossiper
