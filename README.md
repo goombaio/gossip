@@ -61,7 +61,7 @@ limitations under the License.
 [Coverage-URL]: https://codecov.io/gh/goombaio/gossip
 [GoReportCard-Image]: https://goreportcard.com/badge/github.com/goombaio/gossip
 [GoReportCard-URL]: https://goreportcard.com/report/github.com/goombaio/gossip
-[CII-Image]: https://bestpractices.coreinfrastructure.org/projects/2184/badge
-[CII-URL]: https://bestpractices.coreinfrastructure.org/projects/2184
+[CII-Image]: https://bestpractices.coreinfrastructure.org/projects/2223/badge
+[CII-URL]: https://bestpractices.coreinfrastructure.org/projects/2223
 [GoDoc-Image]: https://godoc.org/github.com/goombaio/gossip?status.svg
 [GoDoc-URL]: http://godoc.org/github.com/goombaio/gossip
