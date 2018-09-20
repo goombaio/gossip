@@ -1,4 +1,4 @@
-# gossiper
+# gossip
 
 Gossip protocol implemented in Golang.
 
@@ -14,13 +14,13 @@ Gossip protocol implemented in Golang.
 ## Install
 
 ```bash
-go get github.com/goombaio/gossiper
+go get github.com/goombaio/gossip
 ```
 
 You can also update an already installed version:
 
 ```bash
-go get -u github.com/goombaio/gossiper
+go get -u github.com/goombaio/gossip
 ```
 
 ## Example of use
@@ -29,7 +29,7 @@ go get -u github.com/goombaio/gossiper
 package main
 
 import (
-    "github.com/goombaio/gossiper"
+    "github.com/goombaio/gossip"
 )
 
 func main() {
@@ -55,13 +55,13 @@ limitations under the License.
 
 [License-Image]: https://img.shields.io/badge/License-Apache-blue.svg
 [License-URL]: http://opensource.org/licenses/Apache
-[CircleCI-Image]: https://circleci.com/gh/goombaio/gossiper.svg?style=svg
-[CircleCI-URL]: https://circleci.com/gh/goombaio/gossiper
-[Coverage-Image]: https://codecov.io/gh/goombaio/gossiper/branch/master/graph/badge.svg
-[Coverage-URL]: https://codecov.io/gh/goombaio/gossiper
-[GoReportCard-Image]: https://goreportcard.com/badge/github.com/goombaio/gossiper
-[GoReportCard-URL]: https://goreportcard.com/report/github.com/goombaio/gossiper
+[CircleCI-Image]: https://circleci.com/gh/goombaio/gossip.svg?style=svg
+[CircleCI-URL]: https://circleci.com/gh/goombaio/gossip
+[Coverage-Image]: https://codecov.io/gh/goombaio/gossip/branch/master/graph/badge.svg
+[Coverage-URL]: https://codecov.io/gh/goombaio/gossip
+[GoReportCard-Image]: https://goreportcard.com/badge/github.com/goombaio/gossip
+[GoReportCard-URL]: https://goreportcard.com/report/github.com/goombaio/gossip
 [CII-Image]: https://bestpractices.coreinfrastructure.org/projects/2184/badge
 [CII-URL]: https://bestpractices.coreinfrastructure.org/projects/2184
-[GoDoc-Image]: https://godoc.org/github.com/goombaio/gossiper?status.svg
-[GoDoc-URL]: http://godoc.org/github.com/goombaio/gossiper
+[GoDoc-Image]: https://godoc.org/github.com/goombaio/gossip?status.svg
+[GoDoc-URL]: http://godoc.org/github.com/goombaio/gossip
